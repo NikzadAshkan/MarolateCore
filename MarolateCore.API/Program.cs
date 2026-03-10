@@ -3,8 +3,14 @@ using MarolateCore.Application.DependencyInjection;
 using MarolateCore.Persistence.DependencyInjection;
 using MarolateCore.API.Middlewares;
 using MarolateCore.Application.Configuration;
+using MarolateCore.Persistence.DbContext;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Dbcontext configuration
+builder.Services.AddDbContext<MarolateCoreDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //DependencyInjection
 builder.Services.AddInfrastructure();
